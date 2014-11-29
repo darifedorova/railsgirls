@@ -1,0 +1,40 @@
+<h1>Listing tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Deadline</th>
+      <th>Done</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.deadline %></td>
+        <td><%= if task.done
+          image_tag("done.jpg", class: "checkbox")
+        else
+          image_tag("empty.jpg", class: "checkbox")
+        end%></td>
+        <td><%= task.description %></td>
+        <td><%= link_to 'Show', task %></td>
+        <td><%= link_to 'Edit', edit_task_path(task) %></td>
+        <td><%= link_to 'Check', toggle_task_path(task) %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>Number of tasks <%= @tasks.count %></p>
+
+<br>
+
+<%= link_to 'New Task', new_task_path %>
